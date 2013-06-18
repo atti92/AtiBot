@@ -1,0 +1,5 @@
+.ncb
+.suo
+\CVS\
+\Debug\
+\Release\
