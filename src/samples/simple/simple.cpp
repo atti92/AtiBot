@@ -26,7 +26,7 @@ class HackBotcpp : public PircBot
 		 */
 		HackBotcpp()
 		{
-			this->setName("HackBotcpp");
+			this->setName("AtiBot");
 		}
 		
 		/**
@@ -86,10 +86,10 @@ int main(int argc, char* argv[])
 		p->setVerbose(true);
 
 		//Connect to our irc server
-		p->connect("irc.freenode.net");
+		p->connect("irc.starsonata.com", 7777);
 
 		//Join our channel
-		p->joinChannel("#irchacks");
+		p->joinChannel("#chatbot");
 
 		//Wait until all the threads are destroyed 
 		//before letting main exit.
