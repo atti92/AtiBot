@@ -8,6 +8,7 @@
 //boost includes
 #include <boost/bind.hpp>
 #include <boost/thread/xtime.hpp>
+#include <boost/thread/thread.hpp>
 
 namespace pircbot
 {
@@ -20,7 +21,7 @@ void OutputThread::run()
     while (m_running) 
 	{
 		boost::xtime xt;
-		boost::xtime_get(&xt, boost::TIME_UTC);
+		boost::xtime_get(&xt, boost::TIME_UTC_);
 		xt.sec += (m_bot.getMessageDelay() / 1000);
 		m_thread->sleep(xt);
 		string line = m_outQueue.next();
