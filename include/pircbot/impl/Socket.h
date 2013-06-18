@@ -57,6 +57,7 @@
 //std includes
 #include <string>
 #include <iostream>
+#include <exception>
 
 namespace pircbot
 {
@@ -105,7 +106,7 @@ class Socket
 				size_t count = asio::read_until(*m_socket, m_asioInputStream, boost::regex("\r\n"));
 				std::getline(m_inputStream, line); 
 			}
-			catch(Exception &)
+			catch(std::exception &)
 			{
 				//If Exception just return an empty line
 			}

@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pircbotcpp", "pircbotcpp.vcproj", "{5F11E9DE-E95B-4173-B2C0-76B3CB8164DA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simple", "..\..\src\samples\simple\simple.vcproj", "{7C0F906D-F43D-48FA-A766-D0E2A5245C5F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F11E9DE-E95B-4173-B2C0-76B3CB8164DA} = {5F11E9DE-E95B-4173-B2C0-76B3CB8164DA}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{5F11E9DE-E95B-4173-B2C0-76B3CB8164DA}.Debug.ActiveCfg = Debug|Win32
+		{5F11E9DE-E95B-4173-B2C0-76B3CB8164DA}.Debug.Build.0 = Debug|Win32
+		{5F11E9DE-E95B-4173-B2C0-76B3CB8164DA}.Release.ActiveCfg = Release|Win32
+		{5F11E9DE-E95B-4173-B2C0-76B3CB8164DA}.Release.Build.0 = Release|Win32
+		{7C0F906D-F43D-48FA-A766-D0E2A5245C5F}.Debug.ActiveCfg = Debug|Win32
+		{7C0F906D-F43D-48FA-A766-D0E2A5245C5F}.Debug.Build.0 = Debug|Win32
+		{7C0F906D-F43D-48FA-A766-D0E2A5245C5F}.Release.ActiveCfg = Release|Win32
+		{7C0F906D-F43D-48FA-A766-D0E2A5245C5F}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
