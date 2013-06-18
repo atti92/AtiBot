@@ -21,7 +21,7 @@ const char *Colors::getBold()
 		static string s = string(1, 0x2);
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -35,7 +35,7 @@ const char *Colors::getNormal()
 		static string s = string(1, 0xf);
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -50,7 +50,7 @@ const char *Colors::getUnderLine()
 		s = 0x1f;
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -65,7 +65,7 @@ const char *Colors::getReverse()
 		s = 0x16;
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -79,7 +79,7 @@ const char *Colors::getWhite()
 		static string s = string(1, 0x3) + string("00");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -93,7 +93,7 @@ const char *Colors::getBlack()
 		static string s = string(1, 0x3) + string("01");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -107,7 +107,7 @@ const char *Colors::getDarkBlue()
 		static string s = string(1, 0x3) + string("02");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -121,7 +121,7 @@ const char *Colors::getDarkGreen()
 		static string s = string(1, 0x3) + string("03");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -135,7 +135,7 @@ const char *Colors::getRed()
 		static string s = string(1, 0x3) + string("04");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -149,7 +149,7 @@ const char *Colors::getBrown()
 		static string s = string(1, 0x3) + string("05");	
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -163,7 +163,7 @@ const char *Colors::getPurple()
 		static string s = string(1, 0x3) + string("06");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -177,7 +177,7 @@ const char *Colors::getOlive()
 		static string s = string(1, 0x3) + string("07");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -191,7 +191,7 @@ const char *Colors::getYellow()
 		static string s = string(1, 0x3) + string("08");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -205,7 +205,7 @@ const char *Colors::getGreen()
 		static string s = string(1, 0x3) + string("09");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -219,7 +219,7 @@ const char *Colors::getTeal()
 		static string s = string(1, 0x3) + string("10");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -233,7 +233,7 @@ const char *Colors::getCyan()
 		static string s = string(1, 0x3) + string("11");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -247,7 +247,7 @@ const char *Colors::getBlue()
 		static string s = string(1, 0x3) + string("12");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -261,7 +261,7 @@ const char *Colors::getMagenta()
 		static string s = string(1, 0x3) + string("13");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -275,7 +275,7 @@ const char *Colors::getDarkGray()
 		static string s = string(1, 0x3) + string("14");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -289,7 +289,7 @@ const char *Colors::getLightGray()
 		static string s = string(1, 0x3) + string("15");
 		return s.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -380,7 +380,7 @@ const char *Colors::removeColors(const char *line)
 
 		return strdup(buffer.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -410,7 +410,7 @@ const char *Colors::removeFormatting(const char *line)
 
 		return strdup(buffer.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -423,7 +423,7 @@ void Colors::releaseMemoryOfCharArray(const char *line)
 	{
 		free((void *)line);
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
