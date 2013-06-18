@@ -52,7 +52,7 @@ const char * const User::getPrefix() const
 	{
 		return m_pimpl->m_prefix.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -65,7 +65,7 @@ bool User::isOp() const
 	{
 		return m_pimpl->m_prefix.find_first_of('@') != string::npos;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -78,7 +78,7 @@ bool User::hasVoice() const
 	{
 		return m_pimpl->m_prefix.find_first_of('+') != string::npos;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -91,7 +91,7 @@ const char * const User::getNick() const
 	{
 		return m_pimpl->m_nick.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -104,7 +104,7 @@ const char * const User::toString() const
 	{
 		return string(m_pimpl->m_prefix + m_pimpl->m_nick).c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}

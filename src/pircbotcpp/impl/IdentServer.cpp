@@ -57,12 +57,12 @@ void IdentServer::run()
 			m_bot.log(msg.c_str());
 			socket.close();
 		}
-		catch(exception &)
+		catch(Exception &)
 		{
             // We're not really concerned with what went wrong, are we?
 		}
 	}
-	catch(exception &)
+	catch(Exception &)
 	{
 		m_bot.log("*** Could not start the ident server on port 113.");
 		return;

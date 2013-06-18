@@ -49,7 +49,7 @@ void OutputThread::sendRawLine(const PircBot &bot, Socket &socket, string line)
 		line = ">>>" + line;
 		bot.log(line.c_str());	
 	}
-	catch(exception &)
+	catch(Exception &)
 	{
 		// Silent response - just lose the line.
 	}

@@ -38,7 +38,7 @@ void InputThread::run()
 					{
                         m_bot.handleLine(line.c_str());
                     }
-                    catch (exception &) 
+                    catch (Exception &) 
 					{
                         m_bot.log("### Your implementation of PircBot is faulty and you have");
                         m_bot.log("### allowed an uncaught Exception or Error to propagate in your");
@@ -53,7 +53,7 @@ void InputThread::run()
                     m_running = false;
                 }
             }
-            catch (exception &) 
+            catch (Exception &) 
 			{
                 // This will happen if we haven't received anything from the server for a while.
                 // So we shall send it a ping to check that we are still connected.
@@ -69,7 +69,7 @@ void InputThread::run()
             }
         }
     }
-    catch (exception e) 
+    catch (Exception e) 
 	{
         // Do nothing.
     }

@@ -788,7 +788,7 @@ void PircBot::connect(const char * const hostname, const unsigned int &port, con
 		}
 		onConnect();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -805,7 +805,7 @@ void PircBot::log(const char * const line) const
 			cout << to_simple_string(t) << " " << line << endl; 
 		}
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -818,7 +818,7 @@ const char *PircBot::getName() const
 	{
 		return m_pimpl->m_name.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -831,7 +831,7 @@ const char *PircBot::getLogin() const
 	{
 		return m_pimpl->m_login.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -844,7 +844,7 @@ const char *PircBot::getVersion() const
 	{
 		return m_pimpl->m_version.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1130,7 +1130,7 @@ void PircBot::handleLine(const char * const line)
 			onUnknown(line);
 		}
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1145,7 +1145,7 @@ void PircBot::onServerPing(const char * const response)
 		temp += response;
 		sendRawLine(temp.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1162,7 +1162,7 @@ void PircBot::sendRawLine(const char * const line) const
 			m_pimpl->m_inputThread->sendRawLine(line);
 		}
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1176,7 +1176,7 @@ bool PircBot::isConnected() const
 		recursive_mutex::scoped_lock synchronized(m_pimpl->m_this);
 		return ((m_pimpl->m_inputThread.get() != 0) && (m_pimpl->m_inputThread->isConnected()));
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1199,7 +1199,7 @@ void PircBot::join() const
 		m_pimpl->m_outputThread->join();
 		m_pimpl->m_inputThread->join();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1212,7 +1212,7 @@ unsigned int PircBot::getMaxLineLength() const
 	{
 		return InputThread::MAX_LINE_LENGTH;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1225,7 +1225,7 @@ void PircBot::setMessageDelay(const unsigned int &delay)
 	{
 		m_pimpl->m_messageDelay = delay;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1238,7 +1238,7 @@ unsigned int PircBot::getMessageDelay() const
 	{
 		return m_pimpl->m_messageDelay;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1253,7 +1253,7 @@ void PircBot::joinChannel(const char * const channel) const
 		joinLine += channel;
 		this->sendRawLine(joinLine.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1266,7 +1266,7 @@ void PircBot::setVerbose(const bool &verbose)
 	{
 		m_pimpl->m_verbose = verbose;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1294,7 +1294,7 @@ void PircBot::sendMessage(const char * const target,
 		outQueueMsg += message;
 		m_pimpl->m_outQueue.add(outQueueMsg);
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1308,7 +1308,7 @@ void PircBot::setName(const char * const name)
 	{
 		m_pimpl->m_name = name;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1358,7 +1358,7 @@ User* PircBot::getUsers(const char * const channel, unsigned int &arraySize) con
 		}
 		return userArray;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1371,7 +1371,7 @@ void PircBot::releaseMemoryOfUserArray(User *userArray)
 	{
 		delete[] userArray;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1412,7 +1412,7 @@ void PircBot::onVersion(const char * const sourceNick,
 		onVersion += 0x1;
 		sendRawLine(onVersion.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1446,7 +1446,7 @@ void PircBot::onPing(const char * const sourceNick,
 		rawLine += 0x1;
 		sendRawLine(rawLine.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1469,7 +1469,7 @@ void PircBot::onTime(const char * const sourceNick,
 		rawLine += 0x1;
 		sendRawLine(rawLine.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1491,7 +1491,7 @@ void PircBot::onFinger(const char * const sourceNick,
 		rawLine += 0x1;
 		sendRawLine(rawLine.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1522,7 +1522,7 @@ const char *PircBot::getNick()
 	{
 		return m_pimpl->m_nick.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1772,7 +1772,7 @@ void PircBot::connect(const char * const hostname)
 		recursive_mutex::scoped_lock synchronized(m_pimpl->m_this);
 		connect(hostname, 6667, "");
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1788,7 +1788,7 @@ void PircBot::connect(const char * const hostname,
 		recursive_mutex::scoped_lock synchronized(m_pimpl->m_this);
 		connect(hostname, port, "");
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1808,7 +1808,7 @@ void PircBot::reconnect()
 		}
 		connect(getServer(), getPort(), getPassword());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1823,7 +1823,7 @@ void PircBot::disconnect() const
 		recursive_mutex::scoped_lock synchronized(m_pimpl->m_this);
 		quitServer();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1836,7 +1836,7 @@ void PircBot::setAutoNickChange(bool autoNickChange)
 	{
 		m_pimpl->m_autoNickChange = autoNickChange;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1849,7 +1849,7 @@ void PircBot::startIdentServer() const
 	{
 		m_pimpl->m_identServer.reset(new IdentServer(*this, getLogin()));
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1868,7 +1868,7 @@ void PircBot::joinChannel(const char * const channel,
 		str += key;
 		joinChannel(str.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1884,7 +1884,7 @@ void PircBot::partChannel(const char * const channel) const
 		msg += channel;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1902,7 +1902,7 @@ void PircBot::partChannel(const char * const channel,
 		msg += reason;
 		sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1915,7 +1915,7 @@ void PircBot::quitServer() const
 	{
 		quitServer("");
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1931,7 +1931,7 @@ void PircBot::quitServer(const char * const reason) const
 		msg += reason;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1953,7 +1953,7 @@ void PircBot::sendRawLineViaQueue(const char * const line) const
 			m_pimpl->m_outQueue.add(stringLine);
 		}
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1969,7 +1969,7 @@ void PircBot::sendAction(const char * const target,
 		msg += action;
 		sendCTCPCommand(target, msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -1987,7 +1987,7 @@ void PircBot::sendNotice(const char * const target,
 		msg += notice;
         m_pimpl->m_outQueue.add(msg);
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2007,7 +2007,7 @@ void PircBot::sendCTCPCommand(const char * const target,
 		msg += 0x1;
 		m_pimpl->m_outQueue.add(msg);
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2022,7 +2022,7 @@ void PircBot::changeNick(const char * const newNick) const
 		msg += newNick;
 		sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2040,7 +2040,7 @@ void PircBot::setMode(const char * const channel,
 		msg += mode;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2059,7 +2059,7 @@ void PircBot::sendInvite(const char * const nick,
 		msg += channel;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2077,7 +2077,7 @@ void PircBot::ban(const char * const channel,
 		msg += hostmask;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2095,7 +2095,7 @@ void PircBot::unBan(const char * const channel,
 		msg += hostmask;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2111,7 +2111,7 @@ void PircBot::op(const char * const channel,
 		msg += nick;
         setMode(channel, msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2127,7 +2127,7 @@ void PircBot::deOp(const char * const channel,
 		msg += nick;
         setMode(channel, msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2143,7 +2143,7 @@ void PircBot::voice(const char * const channel,
 		msg += nick;
         setMode(channel, msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2159,7 +2159,7 @@ void PircBot::deVoice(const char * const channel,
 		msg += nick;
         setMode(channel, msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2177,7 +2177,7 @@ void PircBot::setTopic(const char * const channel,
 		msg += topic;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2191,7 +2191,7 @@ void PircBot::kick(const char * const channel,
 	{
         kick(channel, nick, "");
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2212,7 +2212,7 @@ void PircBot::kick(const char * const channel,
 		msg += reason;
         sendRawLine(msg.c_str());
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2225,7 +2225,7 @@ void PircBot::listChannels() const
 	{
         listChannels("");
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2248,7 +2248,7 @@ void PircBot::listChannels(const char * const parameters) const
             sendRawLine(msg.c_str());
         }
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2267,7 +2267,7 @@ void PircBot::setVersion(const char * const version)
 	{
 		m_pimpl->m_version = version;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2280,7 +2280,7 @@ void PircBot::setFinger(const char * const finger)
 	{
 		m_pimpl->m_finger = finger;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2293,7 +2293,7 @@ const char *PircBot::getFinger() const
 	{
 		return m_pimpl->m_finger.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2306,7 +2306,7 @@ void PircBot::setLogin(const char * const login)
 	{
 		m_pimpl->m_login = login;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2320,7 +2320,7 @@ unsigned int PircBot::getOutgoingQueueSize() const
 	{
         return m_pimpl->m_outQueue.size();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2333,7 +2333,7 @@ const char *PircBot::getServer() const
 	{
 		return m_pimpl->m_server.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2346,7 +2346,7 @@ unsigned int PircBot::getPort() const
 	{
         return m_pimpl->m_port;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2359,7 +2359,7 @@ const char *PircBot::getPassword() const
 	{
         return m_pimpl->m_password.c_str();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2377,7 +2377,7 @@ void PircBot::releaseMemoryOfCharArray(const char **array, const unsigned int si
 
 		delete[] array;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2401,7 +2401,7 @@ const char** PircBot::getChannels(int &sizeOfArray) const
 		
 		return channels;
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
@@ -2415,7 +2415,7 @@ void PircBot::dispose()
 		m_pimpl->m_outputThread->dispose();
 		m_pimpl->m_inputThread->dispose();
 	}
-	catch(exception &e)
+	catch(Exception &e)
 	{
 		throw ExceptionImpl(e.what());
 	}
