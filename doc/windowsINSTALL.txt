@@ -1,0 +1,62 @@
+------------------------------------------------------------------
+
+* WELCOME!
+
+How to install the full source code and pircbotcpp engine 
+from scratch for Windows
+
+------------------------------------------------------------------
+
+* AUTHOR and LICENSE
+
+Who wrote this?  Frank Hassanabad : foreverlinux@yahoo.com
+Drop me an email if you have any problems.
+See license.txt about the LGPL licence in which 
+this project is covered.
+
+This includes ASIO header files by Christopher M. Kohlhoff.  
+The license of that is in ASIO_LICENSE_1_0.txt 
+
+------------------------------------------------------------------
+
+* STANDARD EASIEST WAY
+
+These are simple instructions on how to make a build 
+from the source code.
+
+Pre-reqs
+========
+
+You need to install Boost 1.33.1 or greater. 
+
+Define the following enviornment variables: 
+
+BOOST_INCLUDE  -- Define this to be the directory of 
+                  the boost include files.
+
+BOOST_LIB      -- Define this to the directory of 
+                  the BOOST compiled release libs 
+
+BOOST_LIBD     -- Define this to the directory of 
+                  the BOOST complied debug libs.
+
+Open up the visual studio solution: 
+
+build_files\vs7_dll\pircbotcpp.sln 
+
+Then do a rebuild all for either release or debug
+and you should be good to go.
+
+------------------------------------------------------------------
+
+* DARING AUTOBUILD FROM A BATCH FILE WAY
+
+If you're daring and you have doxygen installed 
+and want to automatically create the distribution
+for a version:
+
+Change your working directory to
+[build_files\vs7_build_bin_dist]
+
+and exectute build_dist.bat to create a distribution
+of pircbotcpp into C:\ 
