@@ -395,6 +395,9 @@ class Willie(irc.Bot):
             if not s.owner:
                 s.owner = (origin.nick == Nick(self.config.owner))
 
+            #Bot is admin of itself:
+            if origin.nick == self.nick:
+                s.admin = True
             # Bot owner inherits all the admin rights, therefore is considered
             # admin
             s.admin = s.admin or s.owner

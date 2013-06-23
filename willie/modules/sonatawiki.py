@@ -2,7 +2,19 @@ import re
 from willie import web
 from willie.module import command, commands, example
 import string
+import subprocess
 import HTMLParser
+
+@commands('updateandrestart')
+@example('.updateandrestart')
+def updateandrestart(bot, trigger):
+    """
+    Manage atibot update through github and restart process
+    """
+    if not trigger.admin:
+        return
+    subprocess.Popen("../updateatibot.sh", shell=True)
+
 
 def gettablecontent(q, num, item):
 	"""Getting table data"""

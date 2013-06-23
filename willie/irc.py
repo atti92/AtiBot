@@ -116,6 +116,7 @@ class Bot(asynchat.async_chat):
 
         #We need this to prevent error loops in handle_error
         self.error_count = 0
+        
 
     def log_raw(self, line, prefix):
         ''' Log raw line to the raw log '''
