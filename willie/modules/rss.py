@@ -137,7 +137,7 @@ def read_feeds(willie):
             fp = feedparser.parse(feed_url)
         except IOError, E:
             willie.say("Can't parse, " + str(E))
-        if hasattr(fp, 'entries')
+        if hasattr(fp, 'entries'):
             entry = fp.entries[0]
 
             if not feed_fg and not feed_bg:
