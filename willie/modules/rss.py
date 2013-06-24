@@ -147,6 +147,7 @@ def read_feeds(willie):
             elif feed_fg and feed_bg:
                 site_name_effect = "[\x02\x03%s,%s%s\x03\x02]" % (feed_fg, feed_bg, feed_site_name)
             showurl = False
+            article_url = ''
             if hasattr(entry, 'author'):
                 article_title = "<<" + entry.author + ">>:  "
             if hasattr(entry, 'id'):
@@ -170,7 +171,7 @@ def read_feeds(willie):
                 if showurl == True:
                     response = site_name_effect + " %s \x02%s\x02" % (article_title, article_url) 
                 else:
-                    response = site_name_effect + " %s" % (article_title) 
+                    response = " %s" % (article_title) 
                 if entry.updated:
                     response += " - %s" % (entry.updated)
 
