@@ -10,7 +10,13 @@ import subprocess
 import HTMLParser
 
 socket.setdefaulttimeout(10)
-INTERVAL = 60
+INTERVAL = 30
+host = [
+		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030},
+		{'host': 'test.starsonata.com', 'name':'LiveTest', 'port':3030},
+		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032}
+		
+	]
 
 @commands('updateandrestart')
 @example('.updateandrestart')
@@ -90,10 +96,7 @@ def gettablecontent(q, num, item):
 @example('.status [servername]')
 def serverstatus(bot, trigger):
 	"""Get info about starsonata servers"""
-	host = [
-		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032},
-		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030}
-	]
+	global host
 	servname = 'liberty'
 	if trigger.group(2) is not None:
 		servname = trigger.group(2)
@@ -133,13 +136,16 @@ getshieldstats.priority = 'low'
 @commands('startservcheck')
 @example('.startservcheck')
 def startservcheck(bot, trigger):
-    """ Begin checking serverstatus """
-    if not trigger.admin:
-        bot.reply("You must be an admin to start up the Server checks.")
-        return
-    print 'Server checking began...'
-    global INTERVAL
-    while True:
-        if check_server("liberty.starsonata.com", 3030) is False:
-            bot.say('Liberty (liberty.starsonata.com:3030) is down!')
-        time.sleep(INTERVAL)
+	""" Begin checking serverstatus """
+	if not trigger.admin:
+		bot.reply("You must be an admin to start up the Server checks.")
+		return
+	global host
+	global INTERVAL
+	print 'Server checking began...'
+	while True:
+		for x in host:
+			if check_server(x['host'], x['port']) is False:
+				bot.say(x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ' is down!')
+			pass
+		time.sleep(INTERVAL)
