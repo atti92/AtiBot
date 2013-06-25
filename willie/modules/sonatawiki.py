@@ -12,9 +12,9 @@ import HTMLParser
 socket.setdefaulttimeout(10)
 INTERVAL = 30
 host = [
-		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030},
-		{'host': 'test.starsonata.com', 'name':'LiveTest', 'port':3030},
-		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032}
+		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030, 'ch':False},
+		{'host': 'test.starsonata.com', 'name':'LiveTest', 'port':3030, 'ch':False},
+		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032, 'ch':False}
 		
 	]
 
@@ -146,6 +146,12 @@ def startservcheck(bot, trigger):
 	while True:
 		for x in host:
 			if check_server(x['host'], x['port']) is False:
-				bot.say(x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ' is down!')
+				if x['ch'] is False:
+					bot.msg(bot.nick, '.announce ' + x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ' is down!')
+					x['ch'] = True
+			else:
+				if x['ch'] is False:
+					bot.msg(bot.nick, '.announce ' + x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ' is up!')
+					x['ch'] = True
 			pass
 		time.sleep(INTERVAL)
