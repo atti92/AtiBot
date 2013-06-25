@@ -150,20 +150,19 @@ def read_feeds(willie):
             article_url = ''
             if hasattr(entry, 'author'):
                 article_title = "<<" + entry.author + ">>:  "
-            if hasattr(entry, 'guid'):
-                article_url = entry.guid
-                showurl = True
-            elif hasattr(entry, 'id'):
+            if hasattr(entry, 'id'):
                 article_url = entry.id
-                if re.search('Commit/', entry.id) is not None
-                    article_url = re.sub('.*?Commit/(.*?)', 'Hash: \1', entry.id)
+                if re.search(r'Commit/', entry.id) is not None
+                    article_url = re.sub(r'.*?Commit/(.*?)', 'Hash: \1', entry.id)
+                elif re.search(r'https://.*/.*?', entry.id) is not None
+                    article_url = re.sub(r'https://.*/(.*?)', 'Hash: \1', entry.id)
                 showurl = True
             elif hasattr(entry, 'feedburner_origlink'):
                 article_url = entry.feedburner_origlink
             else:
                 article_url = entry.links[0].href
             if hasattr(entry, 'content'):
-                m = re.search('<pre.*?>(.*?)</pre>', entry.content[0].value, re.DOTALL)
+                m = re.search(r'<pre.*?>(.*?)</pre>', entry.content[0].value, re.DOTALL)
                 content_text =  m.group(1).replace('\n','   ')
             else:
                 content_text = entry.title
