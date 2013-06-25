@@ -150,8 +150,13 @@ def read_feeds(willie):
             article_url = ''
             if hasattr(entry, 'author'):
                 article_title = "<<" + entry.author + ">>:  "
-            if hasattr(entry, 'id'):
+            if hasattr(entry, 'guid'):
+                article_url = entry.guid
+                showurl = True
+            elif hasattr(entry, 'id'):
                 article_url = entry.id
+                if re.search('Commit/', entry.id) is not None
+                    article_url = re.sub('.*?Commit/(.*?)', 'Hash: \1', entry.id)
                 showurl = True
             elif hasattr(entry, 'feedburner_origlink'):
                 article_url = entry.feedburner_origlink
@@ -171,7 +176,7 @@ def read_feeds(willie):
                 if showurl is True:
                     response = site_name_effect + " %s \x02%s\x02" % (article_title, article_url) 
                 else:
-                    response = " %s" % (article_title) 
+                    response = site_name_effect + " %s" % (article_title) 
                 if entry.updated:
                     response += " - %s" % (entry.updated)
 
