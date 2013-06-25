@@ -2,8 +2,15 @@ import re
 from willie import web
 from willie.module import command, commands, example
 import string
+import platform
+import socket
+import time
+import sys
 import subprocess
 import HTMLParser
+
+socket.setdefaulttimeout(10)
+INTERVAL = 60
 
 @commands('updateandrestart')
 @example('.updateandrestart')
@@ -15,6 +22,32 @@ def updateandrestart(bot, trigger):
         return
     subprocess.Popen("../updateatibot.sh", shell=True)
 
+def check_server(address, port):
+	# Create a TCP socket
+	s = socket.socket()
+	#print "Attempting to connect to %s on port %s" % (address, port)
+	try:
+		s.connect((address, port))
+		#print "Connected to %s on port %s" % (address, port)
+		s.close()
+		return True
+	except socket.error, e:
+		print "Connection to %s on port %s failed: %s" % (address, port, e)
+		return False
+
+def ping(host):
+	result = 1
+	if platform.system() is 'Linux':
+		result = subprocess.call(["ping","-c","1",host],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	elif platform.system() is 'Windows':
+		result = subprocess.call(["ping",host],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	if result is 0:
+		return True
+	elif result is 1:
+		raise Exception('Host not found')
+	elif result is 2:
+		raise Exception('Ping timed out')
+	return result
 
 def gettablecontent(q, num, item):
 	"""Getting table data"""
@@ -47,7 +80,29 @@ def gettablecontent(q, num, item):
 	else:
 		result = 'Item not found!'
 	return result
-			
+
+@commands('status')
+@example('.status [servername]')
+def serverstatus(bot, trigger):
+	"""Get info about starsonata servers"""
+	host = [
+		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032},
+		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030}
+	]
+	servname = 'liberty'
+	if trigger.group(2) is not None:
+		servname = trigger.group(2)
+
+	for x in host:
+		if re.search(x['name'], servname, re.IGNORECASE) is not None:
+			reply = x['name'] + " (" + x['host'] + ":" + str(x['port']) + ") is ";
+			if check_server(x['host'], x['port']) is True:
+				bot.reply(reply + "running.")
+			else:
+				bot.reply(reply + "down.")
+		pass
+
+
 @commands('getshieldstats', 'getshieldinfo')
 @example('.getshieldstats Vazaha Haven 7')
 def getshieldstats(bot, trigger):
@@ -69,3 +124,17 @@ def getenergystats(bot, trigger):
 	result = gettablecontent(q, 11, name)
 	bot.reply(result)
 getshieldstats.priority = 'low'
+
+@commands('startservcheck')
+@example('.startservcheck')
+def startservcheck(bot, trigger):
+    """ Begin checking serverstatus """
+    if not trigger.admin:
+        bot.reply("You must be an admin to start up the Server checks.")
+        return
+    print 'Server checking began...'
+    global INTERVAL
+    while True:
+        if check_server("liberty.starsonata.com", 3030) is False:
+            bot.say('Liberty (liberty.starsonata.com:3030) is down!')
+        time.sleep(INTERVAL)

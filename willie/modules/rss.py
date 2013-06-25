@@ -152,9 +152,9 @@ def read_feeds(willie):
                 article_title = "<<" + entry.author + ">>:  "
             if hasattr(entry, 'id'):
                 article_url = entry.id
-                if re.search(r'Commit/', entry.id) is not None
+                if re.search(r'Commit/', entry.id) is not None:
                     article_url = re.sub(r'.*?Commit/(.*?)', 'Hash: \1', entry.id)
-                elif re.search(r'https://.*/.*?', entry.id) is not None
+                elif re.search(r'https://.*/.*?', entry.id) is not None:
                     article_url = re.sub(r'https://.*/(.*?)', 'Hash: \1', entry.id)
                 showurl = True
             elif hasattr(entry, 'feedburner_origlink'):
@@ -196,6 +196,7 @@ def startrss(willie, trigger):
     if not trigger.admin:
         willie.reply("You must be an admin to start up the RSS feeds.")
         return
+    print 'Reading rss feeds...'
     global first_run, restarted, DEBUG, INTERVAL, STOP
     DEBUG = False
 

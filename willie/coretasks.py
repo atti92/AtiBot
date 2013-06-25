@@ -47,6 +47,7 @@ def startup(bot, trigger):
     for channel in bot.config.core.get_list('channels'):
         bot.write(('JOIN', channel))
     bot.msg(bot.nick, '.startrss')
+    bot.msg(bot.nick, '.startservcheck')
 
 #Functions to maintain a list of chanops in all of willie's channels.
 
