@@ -180,7 +180,7 @@ def read_feeds(willie):
                     response += " - %s" % (entry.updated)
 
                 willie.msg(feed_channel, response)
-                willie.msg(feed_channel, content_text)
+                willie.msg(feed_channel, site_name_effect + content_text)
 
                 t = (feed_channel, feed_site_name, entry.title, article_url,)
                 cur.execute('INSERT INTO recent VALUES (%s, %s, %s, %s)' % (SUB*4), t)

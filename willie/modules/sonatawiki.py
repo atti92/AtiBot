@@ -52,18 +52,23 @@ def ping(host):
 def gettablecontent(q, num, item):
 	"""Getting table data"""
 	result = ''
-	if(re.search(item,q)):
-		mstring = '<tr>.?<td>.?'+ re.escape(item) + '[\ \n\r]</td>'
+	if(re.search(re.escape(item), q, re.MULTILINE|re.IGNORECASE)):
+		mstring = '<tr.*?>.?<td.*?>.?'+ re.escape(item) + '[\ \n\r]</td>'
 		for x in xrange(1,num+1):
 			mstring += '.*?<td.*?>(.*?)</td>'
 			pass
 		m = re.search( mstring, q, re.MULTILINE|re.DOTALL|re.IGNORECASE)
-		m2string = '(?!<tr>.?<td>.?Name.*?</table>.*?' +re.escape(item)+ ')<tr>.?<td>.?Name[\ \n\r]*?</td>'
+		if m is None:
+			return 'Can\'t find item'
+		m2string = '(?!<tr>.?<td.*?>.?(?:<b>)?.?Name.*?</table>.*?' +re.escape(item)+ ')<tr>.?<td.*?>.?(?:<b>)?.?Name.*?</td>'
+
 		for x in xrange(1,num+1):
-			m2string += '.*?<td.*?>(.*?)</td>'
+			m2string += '.*?<td.*?>.?(?:<b>)?(.*?)(?:</b>)?</td>'
 			pass
 		m2string += '.*?' + re.escape(item)
 		m2 = re.search(m2string, q, re.MULTILINE|re.DOTALL|re.IGNORECASE)
+		if m2 is None:
+			return 'Can\'t find header'
 		statname = ['Name']
 		for x in xrange(1,num+1):
 			statname.append(m2.group(x))
