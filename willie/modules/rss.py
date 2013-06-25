@@ -137,7 +137,7 @@ def read_feeds(willie):
             fp = feedparser.parse(feed_url)
         except IOError, E:
             willie.say("Can't parse, " + str(E))
-        if hasattr(fp, 'entries'):
+        if fp is not None and hasattr(fp, 'entries'):
             entry = fp.entries[0]
 
             if not feed_fg and not feed_bg:
@@ -168,7 +168,7 @@ def read_feeds(willie):
             sql_text = (feed_channel, feed_site_name, entry.title, article_url)
             cur.execute('SELECT * FROM recent WHERE channel = %s AND site_name = %s and article_title = %s AND article_url = %s' % (SUB*4), sql_text)
             if len(cur.fetchall()) < 1:
-                if showurl == True:
+                if showurl is True:
                     response = site_name_effect + " %s \x02%s\x02" % (article_title, article_url) 
                 else:
                     response = " %s" % (article_title) 
