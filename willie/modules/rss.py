@@ -137,65 +137,66 @@ def read_feeds(willie):
             fp = feedparser.parse(feed_url)
         except IOError, E:
             willie.say("Can't parse, " + str(E))
-        try:
-            if fp is None:
-                raise Exception('fp is none')
-            if not hasattr(fp, 'entries'):
-                raise Exception('no entries')
-            if fp.entries is None:
-                raise Exception('no entries')
-            entry = fp.entries[0]
 
-            if not feed_fg and not feed_bg:
-                site_name_effect = "[\x02%s\x02]" % (feed_site_name)
-            elif feed_fg and not feed_bg:
-                site_name_effect = "[\x02\x03%s%s\x03\x02]" % (feed_fg, feed_site_name)
-            elif feed_fg and feed_bg:
-                site_name_effect = "[\x02\x03%s,%s%s\x03\x02]" % (feed_fg, feed_bg, feed_site_name)
-            showurl = False
-            article_url = ''
-            if hasattr(entry, 'author'):
-                article_title = "<<" + entry.author + ">>:  "
-            if hasattr(entry, 'id'):
-                article_url = entry.id
-                if re.search(r'Commit/', entry.id) is not None:
-                    article_url = re.sub(r'.*?Commit/(.*?)', 'Hash: \1', entry.id)
-                elif re.search(r'https://.*/.*?', entry.id) is not None:
-                    article_url = re.sub(r'https://.*/(.*?)', 'Hash: \1', entry.id)
-                showurl = True
-            elif hasattr(entry, 'feedburner_origlink'):
-                article_url = entry.feedburner_origlink
-            else:
-                article_url = entry.links[0].href
-            if hasattr(entry, 'content'):
-                m = re.search(r'<pre.*?>(.*?)</pre>', entry.content[0].value, re.DOTALL)
-                content_text =  m.group(1).replace('\n','   ')
-            else:
-                content_text = entry.title
-            #if hasattr(entry, 'title'):
-            #    article_title += entry.title
-            # only print if new entry
-            sql_text = (feed_channel, feed_site_name, entry.title, article_url)
-            cur.execute('SELECT * FROM recent WHERE channel = %s AND site_name = %s and article_title = %s AND article_url = %s' % (SUB*4), sql_text)
-            if len(cur.fetchall()) < 1:
-                if showurl is True:
-                    response = site_name_effect + " %s \x02%s\x02" % (article_title, article_url) 
-                else:
-                    response = site_name_effect + " %s" % (article_title) 
-                if entry.updated:
-                    response += " - %s" % (entry.updated)
+        if fp is None:
+            conn.close()
+            return
+        if not hasattr(fp, 'entries'):
+            conn.close()
+            return
+        if fp.entries is None:
+            conn.close()
+            return
+        entry = fp.entries[0]
 
-                willie.msg(feed_channel, response)
-                willie.msg(feed_channel, site_name_effect + " %s" % (content_text))
-
-                t = (feed_channel, feed_site_name, entry.title, article_url,)
-                cur.execute('INSERT INTO recent VALUES (%s, %s, %s, %s)' % (SUB*4), t)
-                conn.commit()
+        if not feed_fg and not feed_bg:
+            site_name_effect = "[\x02%s\x02]" % (feed_site_name)
+        elif feed_fg and not feed_bg:
+            site_name_effect = "[\x02\x03%s%s\x03\x02]" % (feed_fg, feed_site_name)
+        elif feed_fg and feed_bg:
+            site_name_effect = "[\x02\x03%s,%s%s\x03\x02]" % (feed_fg, feed_bg, feed_site_name)
+        showurl = False
+        article_url = ''
+        if hasattr(entry, 'author'):
+            article_title = "<<" + entry.author + ">>:  "
+        if hasattr(entry, 'id'):
+            article_url = entry.id
+            if re.search(r'Commit/', entry.id) is not None:
+                article_url = re.sub(r'.*?Commit/(.*?)', 'Hash: \1', entry.id)
+            elif re.search(r'https://.*/.*?', entry.id) is not None:
+                article_url = re.sub(r'https://.*/(.*?)', 'Hash: \1', entry.id)
+            showurl = True
+        elif hasattr(entry, 'feedburner_origlink'):
+            article_url = entry.feedburner_origlink
+        else:
+            article_url = entry.links[0].href
+        if hasattr(entry, 'content'):
+            m = re.search(r'<pre.*?>(.*?)</pre>', entry.content[0].value, re.DOTALL)
+            content_text =  m.group(1).replace('\n','   ')
+        else:
+            content_text = entry.title
+        #if hasattr(entry, 'title'):
+        #    article_title += entry.title
+        # only print if new entry
+        sql_text = (feed_channel, feed_site_name, entry.title, article_url)
+        cur.execute('SELECT * FROM recent WHERE channel = %s AND site_name = %s and article_title = %s AND article_url = %s' % (SUB*4), sql_text)
+        if len(cur.fetchall()) < 1:
+            if showurl is True:
+                response = site_name_effect + " %s \x02%s\x02" % (article_title, article_url) 
             else:
-                if DEBUG:
-                    willie.msg(feed_channel, u"Skipping previously read entry: %s %s" % (site_name_effect, entry.title))
-        except:
-            print 'Exception in read_feeds'
+                response = site_name_effect + " %s" % (article_title) 
+            if entry.updated:
+                response += " - %s" % (entry.updated)
+
+            willie.msg(feed_channel, response)
+            willie.msg(feed_channel, site_name_effect + " %s" % (content_text))
+
+            t = (feed_channel, feed_site_name, entry.title, article_url,)
+            cur.execute('INSERT INTO recent VALUES (%s, %s, %s, %s)' % (SUB*4), t)
+            conn.commit()
+        else:
+            if DEBUG:
+                willie.msg(feed_channel, u"Skipping previously read entry: %s %s" % (site_name_effect, entry.title))
     conn.close()
 
 
