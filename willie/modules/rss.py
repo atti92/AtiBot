@@ -137,7 +137,13 @@ def read_feeds(willie):
             fp = feedparser.parse(feed_url)
         except IOError, E:
             willie.say("Can't parse, " + str(E))
-        if fp is not None and hasattr(fp, 'entries'):
+        try:
+            if fp is None:
+                raise Exception('fp is none')
+            if not hasattr(fp, 'entries'):
+                raise Exception('no entries')
+            if fp.entries is None:
+                raise Exception('no entries')
             entry = fp.entries[0]
 
             if not feed_fg and not feed_bg:
@@ -180,7 +186,7 @@ def read_feeds(willie):
                     response += " - %s" % (entry.updated)
 
                 willie.msg(feed_channel, response)
-                willie.msg(feed_channel, site_name_effect + content_text)
+                willie.msg(feed_channel, site_name_effect + " %s" % (content_text))
 
                 t = (feed_channel, feed_site_name, entry.title, article_url,)
                 cur.execute('INSERT INTO recent VALUES (%s, %s, %s, %s)' % (SUB*4), t)
@@ -188,6 +194,8 @@ def read_feeds(willie):
             else:
                 if DEBUG:
                     willie.msg(feed_channel, u"Skipping previously read entry: %s %s" % (site_name_effect, entry.title))
+        except:
+            print 'Exception in read_feeds'
     conn.close()
 
 
