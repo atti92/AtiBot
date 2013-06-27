@@ -79,7 +79,7 @@ def gettablecontent(q, num, item):
 		for x in xrange(1,num+1):
 			statname.append(m2.group(x))
 			pass
-		result = '\x033'statname[0] + '\x03: ' + item + ' '
+		result = '\x033' + statname[0] + '\x03: ' + item + ' '
 		for x in xrange(1,num+1):
 			temp = m.group(x).strip()
 			temp = re.sub(r'<a.*?>(.*?)</a>', r'\1', temp)
