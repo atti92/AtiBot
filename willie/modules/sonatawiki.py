@@ -81,12 +81,15 @@ def gettablecontent(q, num, item):
 			pass
 		result = statname[0] + ': ' + item + ' '
 		for x in xrange(1,num+1):
-			result += statname[x] + ': '
-			result += m.group(x) + ' '
+			m.group(x) = re.sub(r'^\ ', r'', m.group(x))
+			m.group(x) = re.sub(r'<a.*?>(.*?)</a>', r'\1', m.group(x))
+			m.group(x) = re.sub(r'\&\#160', r'-', m.group(x))
+			m.group(x) = re.sub(r'<.*?>', r'', m.group(x))
+			if len(m.group(x)) > 0 and m.group(x) is not 'N/A' and m.group(x) is not '-':
+				result += statname[x] + ': '
+				result += m.group(x) + ' '
 			pass
-		result = re.sub(r'<a.*?>(.*?)</a>', r'\1', result)
-		result = re.sub(r'\&\#160', r'-', result)
-		result = re.sub(r'<.*?>', r'', result)
+		
 		pass
 	else:
 		result = 'Item not found!'
