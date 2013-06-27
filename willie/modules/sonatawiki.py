@@ -81,7 +81,7 @@ def gettablecontent(q, num, item):
 			pass
 		result = statname[0] + ': ' + item + ' '
 		for x in xrange(1,num+1):
-			m.group(x) = re.sub(r'^\ ', r'', m.group(x))
+			m.group(x) = re.sub(r'^[ ]', r'', m.group(x))
 			m.group(x) = re.sub(r'<a.*?>(.*?)</a>', r'\1', m.group(x))
 			m.group(x) = re.sub(r'\&\#160', r'-', m.group(x))
 			m.group(x) = re.sub(r'<.*?>', r'', m.group(x))
