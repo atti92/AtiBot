@@ -85,9 +85,9 @@ def gettablecontent(q, num, item):
 			temp = re.sub(r'<a.*?>(.*?)</a>', r'\1', temp)
 			temp = re.sub(r'\&\#160', r'-', temp)
 			temp = re.sub(r'<.*?>', r'', temp)
-			if len(temp) > 0 and temp.find('N/A')==-1 and temp!='-':
+			if len(temp) > 0 and temp.find('N/A')==-1 and temp.find('-;')==-1:
 				result += '\x033'+statname[x] + '\x03: '
-				result += temp + '| '
+				result += temp + ' '
 			pass
 		pass
 	else:
