@@ -15,7 +15,7 @@ import re
 
 DEBUG = False
 socket.setdefaulttimeout(10)
-INTERVAL = 10  # seconds between checking for new updates
+INTERVAL = 20  # seconds between checking for new updates
 STOP = False
 #This is reset in setup().
 SUB = ('%s',)
