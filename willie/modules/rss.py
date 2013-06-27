@@ -137,17 +137,17 @@ def read_feeds(willie):
             fp = feedparser.parse(feed_url)
         except IOError, E:
             willie.say("Can't parse, " + str(E))
-        error = False
         if fp is None:
-            error = True
             print 'fp is None'
-        if not hasattr(fp, 'entries'):
-            error = True
+        elif not hasattr(fp, 'entries'):
             print 'fp has no entries'
-        if fp.entries is None:
-            error = True
+        elif not fp.entries:
             print 'fp.entries is None'
-        if not error:
+        elif not isinstance(fp.entries, (list, tuple)):
+            print 'fp.entries is not a list'
+        elif len(fp.entries) < 1:
+            print 'fp.entries no valid length'
+        else:
             entry = fp.entries[0]
 
             if not feed_fg and not feed_bg:
