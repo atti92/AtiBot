@@ -95,7 +95,7 @@ def gettablecontent(q, num, item):
 	return result
 
 @commands('status')
-@example('.status [servername]')
+@example('.status [servername], servername = liberty, test, livetest')
 def serverstatus(bot, trigger):
 	"""Get info about starsonata servers"""
 	global host
@@ -104,12 +104,12 @@ def serverstatus(bot, trigger):
 		servname = trigger.group(2)
 
 	for x in host:
-		if re.search(x['name'], servname, re.IGNORECASE) is not None:
+		if re.search(servname, x['name'], re.IGNORECASE) is not None:
 			reply = x['name'] + " (" + x['host'] + ":" + str(x['port']) + ") is ";
 			if check_server(x['host'], x['port']) is True:
-				bot.reply(reply + "running.")
+				bot.say(reply + "running.")
 			else:
-				bot.reply(reply + "down.")
+				bot.say(reply + "down.")
 		pass
 
 
@@ -121,7 +121,7 @@ def getshieldstats(bot, trigger):
 	name = trigger.group(2)
 	q = web.get('http://wiki2.starsonata.com/index.php/Shields')
 	result = gettablecontent(q, 14, name)
-	bot.reply(result)
+	bot.say(result)
 getshieldstats.priority = 'low'
 
 @commands('getenergystats', 'getenergyinfo')
@@ -132,7 +132,7 @@ def getenergystats(bot, trigger):
 	name = trigger.group(2)
 	q = web.get('http://wiki2.starsonata.com/index.php/Energy')
 	result = gettablecontent(q, 11, name)
-	bot.reply(result)
+	bot.say(result)
 getshieldstats.priority = 'low'
 
 @commands('startservcheck')

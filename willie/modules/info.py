@@ -33,9 +33,15 @@ def help(bot, trigger):
 @priority('low')
 def commands(bot, trigger):
     """Return a list of bot's commands"""
-    names = ', '.join(sorted(bot.doc.iterkeys()))
+    names = ''
+    notadmincmd = ['at','c','choose','countdown','d','duck','ety','g','gc','gcs','energyinfo','shieldinfo','status','in','isup','length','lmgtfy','mangle','movie','py','radio','rand','search','seen','suggest','temp','title','tld','translate','wt','yt']
+    if trigger.admin:
+        names = ', '.join(sorted(bot.doc.iterkeys()))
+    else:
+        for x in notadmincmd:
+            names += x + ', '
     bot.reply("I am sending you a private message of all my commands!")
-    bot.msg(trigger.nick, 'Commands I recognise: ' + names + '.')
+    bot.msg(trigger.nick, names + '.')
     bot.msg(trigger.nick, ("For help, do '%s: help example' where example is the " +
                     "name of the command you want help for.") % bot.nick)
 
