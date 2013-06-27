@@ -12,9 +12,9 @@ import HTMLParser
 socket.setdefaulttimeout(10)
 INTERVAL = 30
 host = [
-		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030, 'ch':False},
-		{'host': 'test.starsonata.com', 'name':'LiveTest', 'port':3030, 'ch':False},
-		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032, 'ch':False}
+		{'host': 'liberty.starsonata.com', 'name':'Liberty', 'port':3030, 'ch':True},
+		{'host': 'test.starsonata.com', 'name':'LiveTest', 'port':3030, 'ch':True},
+		{'host': 'test.starsonata.com', 'name':'Test', 'port':3032, 'ch':True}
 		
 	]
 
@@ -147,11 +147,11 @@ def startservcheck(bot, trigger):
 		for x in host:
 			if check_server(x['host'], x['port']) is False:
 				if x['ch'] is False:
-					bot.msg(bot.nick, '.announce ' + x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ' is down!')
+					bot.msg(bot.nick, '.announce ' + x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ') is down!')
 					x['ch'] = True
 			else:
 				if x['ch'] is False:
-					bot.msg(bot.nick, '.announce ' + x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ' is up!')
+					bot.msg(bot.nick, '.announce ' + x['name'] + ' (' + x['host'] + ':' + str(x['port']) + ') is up!')
 					x['ch'] = True
 			pass
 		time.sleep(INTERVAL)
